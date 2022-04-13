@@ -14,9 +14,19 @@ public class InterShopMakingOrderPageTests {
     private WebDriver driver;
     private WebDriverWait wait;
 
+    private String url = "http://intershop6.skillbox.ru/product-category/catalog/";
+
+    private String error__message = "Заказ оформлен! Так быть не должно!";
+    private String message__order__is__not__done = "Заказ оформлен! Так быть не должно!";
+    private String message__coupon__is__not__done = "Купон не применён!";
+
+    //Ожидаемый результат для тестов interShop__MakingOrderPage__FirstPositiveOrderTest() и interShop__MakingOrderPage__SecondPositiveOrderTest()
+    private String expectedResult = "Спасибо! Ваш заказ был получен.";
+
+
     @Before
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "drivers\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "drivers/chromedriver");
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 5);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -30,7 +40,7 @@ public class InterShopMakingOrderPageTests {
     public By catalogButtonLocator = By.cssSelector("#menu-item-46 > a");
     public By cardAddBasketButtonLocator = By.cssSelector(".product:nth-child(1) .button");
     public By cardMoreInformationLocator = By.cssSelector(".added_to_cart");
-    public By addOrderButtonLocator = By.linkText("ОФОРМИТЬ ЗАКАЗ");
+    public By addOrderButtonLocator = By.linkText("ПЕРЕЙТИ К ОПЛАТЕ");
     public By pleaseAuthButtonLocator = By.linkText("Авторизуйтесь");
     public By inputNameAuthLocator = By.cssSelector("#username");
     public By inputPasswordAuthLocator = By.cssSelector("#password");
@@ -58,15 +68,72 @@ public class InterShopMakingOrderPageTests {
     public void interShop__MakingOrderPage__NegativeOrderTest() {
         var firstExpectedResult = "Имя для выставления счета обязательное поле.";
         var secondExpectedResult = "Фамилия для выставления счета обязательное поле.";
-        driver.navigate().to("http://intershop5.skillbox.ru/product-category/catalog/");
-        driver.findElement(catalogButtonLocator).click();
-        driver.findElement(cardAddBasketButtonLocator).click();
-        driver.findElement(cardMoreInformationLocator).click();
-        driver.findElement(addOrderButtonLocator).click();
-        driver.findElement(pleaseAuthButtonLocator).click();
-        driver.findElement(inputNameAuthLocator).sendKeys("test@Localtest85.com");
-        driver.findElement(inputPasswordAuthLocator).sendKeys("12345678");
-        driver.findElement(authButtonLocator).click();
+        driver.navigate().to(url);
+        add__goods__scenario();
+        authorization();
+        authorization__submit();
+        add__contacts__information__negative();
+        payment__upon__delivery();
+        confirm__order();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(errorNameExpectedHeaderLocator));
+        Assert.assertEquals(error__message, firstExpectedResult, get__error__name__header__text());
+        Assert.assertEquals(error__message, secondExpectedResult, get__error__surname__header__text());
+    }
+
+    //Позитивный сценарий оформления заказа, с выбором способа оплаты "Оплата при доставке"
+    @Test
+    public void interShop__MakingOrderPage__FirstPositiveOrderTest() {
+        driver.navigate().to(url);
+        add__goods__scenario();
+        authorization();
+        authorization__submit();
+        add__contacts__information();
+        payment__upon__delivery();
+        confirm__order();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(expectedHeaderLocator));
+        Assert.assertEquals(message__order__is__not__done, expectedResult, get__header__text());
+    }
+
+    //Позитивный сценарий оформления заказа, с выбором способа оплаты "Банковской картой"
+    @Test
+    public void interShop__MakingOrderPage__SecondPositiveOrderTest() {
+        driver.navigate().to(url);
+        add__goods__scenario();
+        authorization();
+        authorization__submit();
+        add__contacts__information();
+        forward__payment__bank();
+        confirm__order();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(expectedHeaderLocator));
+        Assert.assertEquals(message__order__is__not__done, expectedResult, get__header__text());
+    }
+
+    //Добавить купон в форме оформления заказа
+    @Test
+    public void interShop__MakingOrderPage__AddCouponTest() {
+        var expectedCouponHeader = "Coupon code applied successfully.";
+        driver.navigate().to(url);
+        add__goods__scenario();
+        authorization();
+        authorization__submit();
+        add__contacts__information();
+        apply__coupon();
+        add__coupon();
+        get__discount();
+        Assert.assertEquals(message__coupon__is__not__done, expectedCouponHeader, get__coupon__header__text());
+    }
+
+    private void add__contacts__information() {
+        driver.findElement(nameInputLocator).sendKeys("Зина");
+        driver.findElement(surnameInputLocator).sendKeys("Малышева");
+        driver.findElement(addressInputLocator).sendKeys("ул. Кутузова 16");
+        driver.findElement(cityInputLocator).sendKeys("Ульяновск");
+        driver.findElement(stateInputLocator).sendKeys("Ульяновская область");
+        driver.findElement(postCodeInputLocator).sendKeys("320456");
+        driver.findElement(phoneNumberInputLocator).sendKeys("+79173063467");
+    }
+
+    private void add__contacts__information__negative() {
         driver.findElement(nameInputLocator).sendKeys("");
         driver.findElement(surnameInputLocator).sendKeys("");
         driver.findElement(addressInputLocator).sendKeys("ул. Кутузова 16");
@@ -74,87 +141,62 @@ public class InterShopMakingOrderPageTests {
         driver.findElement(stateInputLocator).sendKeys("Ульяновская область");
         driver.findElement(postCodeInputLocator).sendKeys("320456");
         driver.findElement(phoneNumberInputLocator).sendKeys("+79173063467");
-        driver.findElement(paymentMethodRadioButtonLocator).click();
-        driver.findElement(orderByButtonLocator).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(errorNameExpectedHeaderLocator));
-        Assert.assertEquals("Заказ оформлен! Так быть не должно!", firstExpectedResult, driver.findElement(errorNameExpectedHeaderLocator).getText());
-        Assert.assertEquals("Заказ оформлен! Так быть не должно!", secondExpectedResult, driver.findElement(errorSurnameExpectedHeaderLocator).getText());
     }
 
-    //Позитивный сценарий оформления заказа, с выбором способа оплаты "Оплата при доставке"
-    @Test
-    public void interShop__MakingOrderPage__FirstPositiveOrderTest() {
-        var expectedResult = "Спасибо! Ваш заказ был получен.";
-        driver.navigate().to("http://intershop5.skillbox.ru/product-category/catalog/");
-        driver.findElement(catalogButtonLocator).click();
-        driver.findElement(cardAddBasketButtonLocator).click();
-        driver.findElement(cardMoreInformationLocator).click();
-        driver.findElement(addOrderButtonLocator).click();
-        driver.findElement(pleaseAuthButtonLocator).click();
-        driver.findElement(inputNameAuthLocator).sendKeys("test@Localtest82.com");
+    private void authorization() {
+        driver.findElement(inputNameAuthLocator).sendKeys("testing12@test.com");
         driver.findElement(inputPasswordAuthLocator).sendKeys("12345678");
-        driver.findElement(authButtonLocator).click();
-        driver.findElement(nameInputLocator).sendKeys("Зина");
-        driver.findElement(surnameInputLocator).sendKeys("Малышева");
-        driver.findElement(addressInputLocator).sendKeys("ул. Кутузова 16");
-        driver.findElement(cityInputLocator).sendKeys("Ульяновск");
-        driver.findElement(stateInputLocator).sendKeys("Ульяновская область");
-        driver.findElement(postCodeInputLocator).sendKeys("320456");
-        driver.findElement(phoneNumberInputLocator).sendKeys("+79173063467");
-        driver.findElement(paymentMethodRadioButtonLocator).click();
-        driver.findElement(orderByButtonLocator).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(expectedHeaderLocator));
-        Assert.assertEquals("Заказ не оформлен!", expectedResult, driver.findElement(expectedHeaderLocator).getText());
     }
 
-    //Позитивный сценарий оформления заказа, с выбором способа оплаты "Банковской картой"
-    @Test
-    public void interShop__MakingOrderPage__SecondPositiveOrderTest() {
-        var expectedResult = "Спасибо! Ваш заказ был получен.";
-        driver.navigate().to("http://intershop5.skillbox.ru/product-category/catalog/");
-        driver.findElement(catalogButtonLocator).click();
-        driver.findElement(cardAddBasketButtonLocator).click();
-        driver.findElement(cardMoreInformationLocator).click();
-        driver.findElement(addOrderButtonLocator).click();
-        driver.findElement(pleaseAuthButtonLocator).click();
-        driver.findElement(inputNameAuthLocator).sendKeys("test@Localtest83.com");
-        driver.findElement(inputPasswordAuthLocator).sendKeys("12345678");
-        driver.findElement(authButtonLocator).click();
-        driver.findElement(nameInputLocator).sendKeys("Зина");
-        driver.findElement(surnameInputLocator).sendKeys("Малышева");
-        driver.findElement(addressInputLocator).sendKeys("ул. Кутузова 16");
-        driver.findElement(cityInputLocator).sendKeys("Ульяновск");
-        driver.findElement(stateInputLocator).sendKeys("Ульяновская область");
-        driver.findElement(postCodeInputLocator).sendKeys("320456");
-        driver.findElement(phoneNumberInputLocator).sendKeys("+79173063467");
-        driver.findElement(paymentSecondPaymentMethodRadioButtonLocator).click();
-        driver.findElement(orderByButtonLocator).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(expectedHeaderLocator));
-        Assert.assertEquals("Заказ не оформлен!", expectedResult, driver.findElement(expectedHeaderLocator).getText());
-    }
-    //Добавить купон в форме оформления заказа
-    @Test
-    public void interShop__MakingOrderPage__AddCouponTest() {
-        var expectedCouponHeader = "Купон успешно добавлен.";
-        driver.navigate().to("http://intershop5.skillbox.ru/product-category/catalog/");
-        driver.findElement(catalogButtonLocator).click();
-        driver.findElement(cardAddBasketButtonLocator).click();
-        driver.findElement(cardMoreInformationLocator).click();
-        driver.findElement(addOrderButtonLocator).click();
-        driver.findElement(pleaseAuthButtonLocator).click();
-        driver.findElement(inputNameAuthLocator).sendKeys("test@Localtest84.com");
-        driver.findElement(inputPasswordAuthLocator).sendKeys("12345678");
-        driver.findElement(authButtonLocator).click();
-        driver.findElement(nameInputLocator).sendKeys("Зина");
-        driver.findElement(surnameInputLocator).sendKeys("Малышева");
-        driver.findElement(addressInputLocator).sendKeys("ул. Кутузова 16");
-        driver.findElement(cityInputLocator).sendKeys("Ульяновск");
-        driver.findElement(stateInputLocator).sendKeys("Ульяновская область");
-        driver.findElement(postCodeInputLocator).sendKeys("320456");
-        driver.findElement(phoneNumberInputLocator).sendKeys("+79173063467");
-        driver.findElement(addCouponButtonLocator).click();
+    private void add__coupon() {
         driver.findElement(couponInputLocator).sendKeys("sert500");
+    }
+
+    private void authorization__submit() {
+        driver.findElement(authButtonLocator).click();
+    }
+
+    private void payment__upon__delivery() {
+        driver.findElement(paymentMethodRadioButtonLocator).click();
+    }
+
+    private void forward__payment__bank() {
+        driver.findElement(paymentSecondPaymentMethodRadioButtonLocator).click();
+    }
+
+    private void apply__coupon() {
+        driver.findElement(addCouponButtonLocator).click();
+    }
+
+    private void get__discount() {
         driver.findElement(applyCouponButton).click();
-        Assert.assertEquals("Купон не применён!", expectedCouponHeader, driver.findElement(expectedCouponHeaderLocator).getText());
+    }
+
+    private void confirm__order() {
+        driver.findElement(orderByButtonLocator).click();
+    }
+
+    private void add__goods__scenario() {
+        driver.findElement(catalogButtonLocator).click();
+        driver.findElement(cardAddBasketButtonLocator).click();
+        driver.findElement(cardMoreInformationLocator).click();
+        driver.findElement(addOrderButtonLocator).click();
+        driver.findElement(pleaseAuthButtonLocator).click();
+    }
+
+    private String get__header__text() {
+        return driver.findElement(expectedHeaderLocator).getText();
+    }
+
+    private String get__coupon__header__text() {
+        return driver.findElement(expectedCouponHeaderLocator).getText();
+    }
+
+    private String get__error__name__header__text() {
+        return driver.findElement(errorNameExpectedHeaderLocator).getText();
+    }
+
+    private String get__error__surname__header__text() {
+        return driver.findElement(errorSurnameExpectedHeaderLocator).getText();
     }
 }

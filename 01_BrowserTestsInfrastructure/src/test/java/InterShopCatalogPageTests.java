@@ -114,7 +114,8 @@ public class InterShopCatalogPageTests {
     public void interShop__CatalogPage__Watch__AddBasketTest() {
         var expectedResult = "SAMSUNG Galaxy Watch 46мм, 1.3\", серебристый";
         driver.navigate().to(url);
-        add__two__goods__to__basket();
+        get__watch__list();
+        add__card__to__basket();
         get__information();
         Assert.assertEquals(error_message, expectedResult, get__watch__header__text());
     }
@@ -126,12 +127,11 @@ public class InterShopCatalogPageTests {
         var secondExpectedResult = "Фотоаппарат CANON EOS M50 kit ( 18-150 IS STM), черный";
         driver.navigate().to(url);
         get_electronics__list();
-        driver.findElement(electronicsPaginationButtonLocator).click();
-        driver.findElement(cardAddButtonLocator).click();
-        driver.findElement(electronicsSecondAddBasketButtonLocator).click();
-        driver.findElement(electronicsMoreInformationButtonLocator).click();
-        Assert.assertEquals(error_message, firstExpectedResult, driver.findElement(expectedElectronicsFirstHeaderLocator).getText());
-        Assert.assertEquals(error_message, secondExpectedResult, driver.findElement(expectedElectronicsSecondHeaderLocator).getText());
+        get__pagination();
+        add__card__to__basket();
+        add__electronics__to__basket();
+        Assert.assertEquals(error_message, firstExpectedResult, get__electronics__first__header__text());
+        Assert.assertEquals(error_message, secondExpectedResult, get__electronics__second__header__text());
     }
 
     private void get__information() {
@@ -146,59 +146,52 @@ public class InterShopCatalogPageTests {
         driver.findElement(linkHouseholdEquipmentCatalogListLocator).click();
     }
 
-    private String get__equipment__header__card__text() {
-        return driver.findElement(expectedHeaderResultLocator).getText();
-    }
+    private String get__equipment__header__card__text() {return driver.findElement(expectedHeaderResultLocator).getText(); }
 
     private void add__refrigerator() {
         driver.findElement(addRefrigeratorBasketButton).click();
     }
 
-    private String get__refrigerator__header__card__text() {
-        return driver.findElement(refrigeratorExpectedHeaderResultLocator).getText();
-    }
+    private String get__refrigerator__header__card__text() {return driver.findElement(refrigeratorExpectedHeaderResultLocator).getText();}
 
     private void add__goods__to__basket() {
         driver.findElement(addCatalogBasketButtonLocator).click();
     }
 
-    private void add__two__goods__to__basket() {
-        driver.findElement(watchButtonLocator).click();
-        driver.findElement(cardAddButtonLocator).click();
-        ;
-    }
+    private void get__watch__list() {driver.findElement(watchButtonLocator).click();}
 
-    private String get__first__header__result__text() {
-        return driver.findElement(catalogFirstExpectedHeaderResultLocator).getText();
-    }
+    private void add__card__to__basket() {driver.findElement(cardAddButtonLocator).click(); }
+
+    private String get__first__header__result__text() {return driver.findElement(catalogFirstExpectedHeaderResultLocator).getText();}
 
     private void get__pagination__firth() {
         driver.findElement(paginationButtonFirthLocator).click();
     }
 
-    private void add__tables() {
-        driver.findElement(tablesButtonLocator).click();
-        ;
-    }
+    private void add__tables() {driver.findElement(tablesButtonLocator).click();}
 
     private void add__catalog__product__basket() {
         driver.findElement(addCatalogProductBasketButtonLocator).click();
     }
 
-    private void get_electronics__list() {
-        driver.findElement(electronicsButtonLocator).click();;
+    private void get_electronics__list() {driver.findElement(electronicsButtonLocator).click();}
+
+    private String get__second__header__result__text() {return driver.findElement(catalogSecondExpectedHeaderResultLocator).getText();}
+
+    private void add__electronics__to__basket() {
+        driver.findElement(electronicsSecondAddBasketButtonLocator).click();
+        driver.findElement(electronicsMoreInformationButtonLocator).click();
     }
 
-    private String get__second__header__result__text() {
-        return driver.findElement(catalogSecondExpectedHeaderResultLocator).getText();
-    }
+    private void get__pagination() {driver.findElement(electronicsPaginationButtonLocator).click();}
 
     private String get__tables__header__text() {
         return driver.findElement(expectedTablesHeaderLocator).getText();
     }
 
-    private String get__watch__header__text() {
-        return driver.findElement(expectedWatchHeaderLocator).getText();
-    }
+    private String get__watch__header__text() {return driver.findElement(expectedWatchHeaderLocator).getText();}
 
+    private String get__electronics__first__header__text() {return driver.findElement(expectedElectronicsFirstHeaderLocator).getText();}
+
+    private String get__electronics__second__header__text() {return driver.findElement(expectedElectronicsSecondHeaderLocator).getText();}
 }
