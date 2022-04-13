@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.concurrent.TimeUnit;
 
 public class interShopMainPageTests {
+
     private WebDriver driver;
     private WebDriverWait wait;
 
@@ -20,7 +21,7 @@ public class interShopMainPageTests {
     private String error__message = "Заголовок раздела не соответствует выбранной карточке";
     private String incorrect__phone__message = "Заголовок раздела не соответствует выбранной карточке";
     private String incorrect__tablet__message = "Заголовок раздела не соответствует выбранной карточке";
-    private String group__is__empty =  "Раздел не появился";    
+    private String group__is__empty = "Раздел не появился";
 
     @Before
     public void setUp() {
