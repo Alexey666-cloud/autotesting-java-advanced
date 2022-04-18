@@ -18,7 +18,7 @@ public class interShopMainPageTests extends TestBase {
     public void interShop__Homepage__BookCardTest() {
         var page = new MainPage(driver);
         page.open();
-        page.get__book__card();
+        page.bookCardLocator.click();
         Assert.assertEquals(error__message, "КНИГИ", page.get__title());
     }
 
@@ -27,7 +27,7 @@ public class interShopMainPageTests extends TestBase {
     public void interShop__Homepage__tabletCardTest() {
         var page = new MainPage(driver);
         page.open();
-        page.get__tablet__card();
+        page.tabletCardLocator.click();
         Assert.assertEquals(error__message, "ПЛАНШЕТЫ", page.get__title());
     }
 
@@ -36,7 +36,7 @@ public class interShopMainPageTests extends TestBase {
     public void interShop__Homepage__cameraCardTest() {
         var page = new MainPage(driver);
         page.open();
-        page.get__camera__card();
+        page.cameraCardLocator.click();
         Assert.assertEquals(error__message, "ФОТО/ВИДЕО", page.get__title());
     }
 
@@ -45,8 +45,8 @@ public class interShopMainPageTests extends TestBase {
     public void interShop__Homepage__ProductButtonTest() {
         var page = new MainPage(driver);
         page.open();
-        page.get__discount__card();
-        Assert.assertEquals(incorrect__tablet__message, "iPad 2020 32gb wi-fi", driver.findElement(page.tabletTitleHeaderLocator).getText());
+        page.seeProductButtonLocator.click();
+        Assert.assertEquals(incorrect__tablet__message, "iPad 2020 32gb wi-fi", page.tabletTitleHeaderLocator.getText());
     }
 
     //Проверка появления модуля "Ранее просмотренные товары"
@@ -55,8 +55,8 @@ public class interShopMainPageTests extends TestBase {
         var mainPage = new MainPage(driver);
         var headerPanel = new HeaderPanel(driver);
         mainPage.open();
-        mainPage.get__products();
-        headerPanel.clickMainPageButton();
+        mainPage.seeProductButtonLocator.click();
+        headerPanel.mainPageButtonLocator.click();
         wait.until(ExpectedConditions.presenceOfElementLocated(mainPage.viewedProductsModuleLocator));
         Assert.assertTrue(group__is__empty, driver.findElement(mainPage.viewedProductsModuleLocator).isDisplayed());
     }

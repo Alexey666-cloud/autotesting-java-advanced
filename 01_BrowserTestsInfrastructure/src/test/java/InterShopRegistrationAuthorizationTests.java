@@ -14,12 +14,12 @@ public class InterShopRegistrationAuthorizationTests extends TestBase {
         var expectedResult = "Регистрация завершена";
         var page = new RegistrationPage(driver);
         page.open();
-        page.get__entry();
-        page.get__registration();
-        page.add__name__reg();
-        page.add__email__reg();
-        page.add__password__reg();
-        page.submit__registration();
+        page.enterButtonLocator.click();
+        page.registrationButtonLocator.click();
+        page.nameInputRegLocator.sendKeys("test@Localtest815.com");
+        page.emailInputLocator.sendKeys("test@Localtest48h77587.com");
+        page.passwordRegInputLocator.sendKeys("12345678");
+        page.submitButtonLocator.click();
         Assert.assertEquals(errorRegistrationIsMissed, expectedResult, page.get__header__done__registration());
     }
 
@@ -29,10 +29,10 @@ public class InterShopRegistrationAuthorizationTests extends TestBase {
         var expectedHeader = "МОЙ АККАУНТ";
         var page = new RegistrationPage(driver);
         page.open();
-        page.get__entry();
-        page.add__name();
-        page.add__password();
-        page.submit__authorization();
+        page.enterButtonLocator.click();
+        page.nameInputLocator.sendKeys("test@Localtest87.com");
+        page.passwordInputLocator.sendKeys("12345678");
+        page.submitAuthButtonLocator.click();
         Assert.assertEquals(errorAuthorizationIsMissed, expectedHeader, page.get__header__done__auth());
     }
 
@@ -42,9 +42,9 @@ public class InterShopRegistrationAuthorizationTests extends TestBase {
         var expectedHeader = "Пароль обязателен.";
         var page = new RegistrationPage(driver);
         page.open();
-        page.get__entry();
-        page.get__name__negative__test();
-        page.submit__authorization();
+        page.enterButtonLocator.click();
+        page.nameInputAuthLocator.sendKeys("test@test.com");
+        page.submitAuthButtonLocator.click();
         Assert.assertEquals(errorAuthorizationNegativeIsDone, expectedHeader, page.get__header__error());
     }
 
@@ -54,9 +54,9 @@ public class InterShopRegistrationAuthorizationTests extends TestBase {
         var expectedHeader = "Error: Имя пользователя обязательно.";
         var page = new RegistrationPage(driver);
         page.open();
-        page.get__entry();
-        page.add__password();
-        page.submit__authorization();
+        page.enterButtonLocator.click();
+        page.passwordInputLocator.sendKeys("12345678");
+        page.submitAuthButtonLocator.click();
         Assert.assertEquals(errorAuthorizationNegativeIsDone, expectedHeader, page.get__header__error());
     }
 }

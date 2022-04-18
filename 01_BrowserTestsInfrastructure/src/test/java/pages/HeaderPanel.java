@@ -1,18 +1,19 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class HeaderPanel {
-    public By mainPageButtonLocator = By.cssSelector("#menu-item-26 > a");
+
+    @FindBy(css = "#menu-item-26 > a")
+    public WebElement mainPageButtonLocator;
 
     private WebDriver driver;
 
     public HeaderPanel(WebDriver driver) {
         this.driver = driver;
-    }
-
-    public void clickMainPageButton() {
-        driver.findElement(mainPageButtonLocator).click();
+        PageFactory.initElements(driver, this);
     }
 }

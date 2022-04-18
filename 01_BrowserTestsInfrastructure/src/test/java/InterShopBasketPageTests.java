@@ -18,9 +18,9 @@ public class InterShopBasketPageTests extends TestBase {
         var expectedHeader = "ОФОРМЛЕНИЕ ЗАКАЗА";
         var page = new BasketPage(driver);
         page.open();
-        page.add__product();
-        page.get__information();
-        page.confirm__order();
+        page.addProductButtonLocator.click();
+        page.moreInformationProductButtonLocator.click();
+        page.confirmOrderButtonLocator.click();
         Assert.assertEquals(error__invalid__transition, expectedHeader, page.get__header__text__add__goods());
     }
 
@@ -30,11 +30,11 @@ public class InterShopBasketPageTests extends TestBase {
         var expectedResult = "34990,00₽";
         var page = new BasketPage(driver);
         page.open();
-        page.add__product();
-        page.get__information();
-        page.add__valid__coupon();
-        page.apply__coupon();
-        var actualResult = driver.findElement(page.finalPriceLocator).getText();
+        page.addProductButtonLocator.click();
+        page.moreInformationProductButtonLocator.click();
+        page.inputCouponLocator.sendKeys("sert500");
+        page.buttonApplyCouponLocator.click();
+        var actualResult = page.finalPriceLocator.getText();
         Assert.assertEquals(error__incorrect__amount, actualResult, expectedResult);
     }
 
@@ -44,10 +44,10 @@ public class InterShopBasketPageTests extends TestBase {
         var expectedErrorString = "Неверный купон.";
         var page = new BasketPage(driver);
         page.open();
-        page.add__product();
-        page.get__information();
-        page.add__invalid__coupon();
-        page.apply__coupon();
+        page.addProductButtonLocator.click();
+        page.moreInformationProductButtonLocator.click();
+        page.inputCouponLocator.sendKeys("sert3000");
+        page.buttonApplyCouponLocator.click();
         Assert.assertEquals(error__not__message, expectedErrorString, page.get__error__text__with__delete__coupon());
     }
 
@@ -57,10 +57,10 @@ public class InterShopBasketPageTests extends TestBase {
         var expectedCouponString = "Coupon has been removed.";
         var page = new BasketPage(driver);
         page.open();
-        page.add__product();
-        page.get__information();
-        page.add__valid__coupon();
-        page.apply__coupon();
+        page.addProductButtonLocator.click();
+        page.moreInformationProductButtonLocator.click();
+        page.inputCouponLocator.sendKeys("sert500");
+        page.buttonApplyCouponLocator.click();
         page.delete__coupon();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(page.deleteCouponButtonLocator));
         Assert.assertEquals(error__not__message__delete__coupon, expectedCouponString, page.get__error__text());
@@ -72,8 +72,8 @@ public class InterShopBasketPageTests extends TestBase {
         var expectedHeader = "Корзина пуста.";
         var page = new BasketPage(driver);
         page.open();
-        page.add__product();
-        page.get__information();
+        page.addProductButtonLocator.click();
+        page.moreInformationProductButtonLocator.click();
         page.delete__product();
         Assert.assertEquals(error__goods__not__delete__on__basket, expectedHeader, page.get__header__empty__basket());
     }

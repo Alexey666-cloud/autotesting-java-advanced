@@ -1,6 +1,10 @@
 package pages;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class RegistrationPage {
 
@@ -8,77 +12,51 @@ public class RegistrationPage {
 
     private String url = "http://intershop6.skillbox.ru/";
 
-    public By enterButtonLocator = By.linkText("Войти");
-    public By registrationButtonLocator = By.cssSelector(".custom-register-button");
-    public By nameInputLocator = By.cssSelector("#username");
-    public By emailInputLocator = By.cssSelector("#reg_email");
-    public By passwordInputLocator = By.cssSelector("#password");
-    public By passwordRegInputLocator = By.cssSelector("#reg_password");
-    public By submitButtonLocator = By.cssSelector(".woocommerce-form-register__submit");
-    public By expectedHeaderLocator = By.cssSelector(".content-page > div");
-    public By nameInputAuthLocator = By.cssSelector("#username");
-    public By nameInputRegLocator = By.cssSelector("#reg_username");
-    public By submitAuthButtonLocator = By.cssSelector("button[name=login]");
-    public By expectedHeaderAuthLocator = By.cssSelector(".post-title");
-    public By expectedErrorHeaderAuthLocator = By.cssSelector(".woocommerce-error > li");
+    @FindBy(linkText = "Войти")
+    public WebElement enterButtonLocator;
+    @FindBy(css = ".custom-register-button")
+    public WebElement registrationButtonLocator;
+    @FindBy(css = "#username")
+    public WebElement nameInputLocator;
+    @FindBy(css = "#reg_email")
+    public WebElement emailInputLocator;
+    @FindBy(css = "#password")
+    public WebElement passwordInputLocator;
+    @FindBy(css = "#reg_password")
+    public WebElement passwordRegInputLocator;
+    @FindBy(css = ".woocommerce-form-register__submit")
+    public WebElement submitButtonLocator;
+    @FindBy(css = ".content-page > div")
+    public WebElement expectedHeaderLocator;
+    @FindBy(css = "#username")
+    public WebElement nameInputAuthLocator;
+    @FindBy(css = "#reg_username")
+    public WebElement nameInputRegLocator;
+    @FindBy(css = "button[name=login]")
+    public WebElement submitAuthButtonLocator;
+    @FindBy(css = ".post-title")
+    public WebElement expectedHeaderAuthLocator;
+    @FindBy(css = ".woocommerce-error > li")
+    public WebElement expectedErrorHeaderAuthLocator;
 
     public RegistrationPage(WebDriver driver) {
         this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
     public void open() {
         driver.navigate().to(url);
     }
 
-    public void add__name() {
-        driver.findElement(nameInputLocator).sendKeys("test@Localtest87.com");
-    }
-
-    public void add__name__reg() {
-        driver.findElement(nameInputRegLocator).sendKeys("test@Localtest93348798.com");
-    }
-
-    public void add__password__reg() {
-        driver.findElement(passwordRegInputLocator).sendKeys("12345678");
-    }
-
-    public void add__email__reg() {
-        driver.findElement(emailInputLocator).sendKeys("test@Localtest4833h77587.com");
-    }
-
-    public void add__password() {
-        driver.findElement(passwordInputLocator).sendKeys("12345678");
-    }
-
-    public void submit__registration() {
-        driver.findElement(submitButtonLocator).click();
-    }
-
-    public void submit__authorization() {
-        driver.findElement(submitAuthButtonLocator).click();
-    }
-
-    public void get__name__negative__test() {
-        driver.findElement(nameInputAuthLocator).sendKeys("test@test.com");
-    }
-
-    public void get__entry() {
-        driver.findElement(enterButtonLocator).click();
-    }
-
-    public void get__registration() {
-        driver.findElement(registrationButtonLocator).click();
-    }
-
     public String get__header__error() {
-        return driver.findElement(expectedErrorHeaderAuthLocator).getText();
+        return expectedErrorHeaderAuthLocator.getText();
     }
 
     public String get__header__done__registration() {
-        return driver.findElement(expectedHeaderLocator).getText();
+        return expectedHeaderLocator.getText();
     }
 
     public String get__header__done__auth() {
-        return driver.findElement(expectedHeaderAuthLocator).getText();
+        return expectedHeaderAuthLocator.getText();
     }
 }

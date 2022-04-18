@@ -19,13 +19,24 @@ public class InterShopMakingOrderPageTests extends TestBase{
         var secondExpectedResult = "Фамилия для выставления счета обязательное поле.";
         var page = new OrderPage(driver);
         page.open();
-        page.add__goods__scenario();
-        page.authorization();
-        page.authorization__submit();
-        page.add__contacts__information__negative();
-        page.payment__upon__delivery();
-        page.confirm__order();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(page.errorNameExpectedHeaderLocator));
+        page.catalogButtonLocator.click();
+        page.cardAddBasketButtonLocator.click();
+        page.cardMoreInformationLocator.click();
+        page.addOrderButtonLocator.click();
+        page.pleaseAuthButtonLocator.click();
+        page.inputNameAuthLocator.sendKeys("testing12@test.com");
+        page.inputPasswordAuthLocator.sendKeys("12345678");
+        page.authButtonLocator.click();
+        page.nameInputLocator.sendKeys("");
+        page.surnameInputLocator.sendKeys("");
+        page.addressInputLocator.sendKeys("ул. Кутузова 16");
+        page.cityInputLocator.sendKeys("Ульяновск");
+        page.stateInputLocator.sendKeys("Ульяновская область");
+        page.postCodeInputLocator.sendKeys("320456");
+        page.phoneNumberInputLocator.sendKeys("+79173063467");
+        page.paymentMethodRadioButtonLocator.click();
+        page.orderByButtonLocator.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(page.errorNameExpectedHeaderLocatorWait));
         Assert.assertEquals(error__message, firstExpectedResult, page.get__error__name__header__text());
         Assert.assertEquals(error__message, secondExpectedResult, page.get__error__surname__header__text());
     }
@@ -35,13 +46,24 @@ public class InterShopMakingOrderPageTests extends TestBase{
     public void interShop__MakingOrderPage__FirstPositiveOrderTest() {
         var page = new OrderPage(driver);
         page.open();
-        page.add__goods__scenario();
-        page.authorization();
-        page.authorization__submit();
-        page.add__contacts__information();
-        page.payment__upon__delivery();
-        page.confirm__order();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(page.expectedHeaderLocator));
+        page.catalogButtonLocator.click();
+        page.cardAddBasketButtonLocator.click();
+        page.cardMoreInformationLocator.click();
+        page.addOrderButtonLocator.click();
+        page.pleaseAuthButtonLocator.click();
+        page.inputNameAuthLocator.sendKeys("testing12@test.com");
+        page.inputPasswordAuthLocator.sendKeys("12345678");
+        page.authButtonLocator.click();
+        page.nameInputLocator.sendKeys("Зина");
+        page.surnameInputLocator.sendKeys("Малышева");
+        page.addressInputLocator.sendKeys("ул. Кутузова 16");
+        page.cityInputLocator.sendKeys("Ульяновск");
+        page.stateInputLocator.sendKeys("Ульяновская область");
+        page.postCodeInputLocator.sendKeys("320456");
+        page.phoneNumberInputLocator.sendKeys("+79173063467");
+        page.paymentMethodRadioButtonLocator.click();
+        page.orderByButtonLocator.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(page.expectedHeaderLocatorWait));
         Assert.assertEquals(message__order__is__not__done, expectedResult, page.get__header__text());
     }
 
@@ -50,13 +72,24 @@ public class InterShopMakingOrderPageTests extends TestBase{
     public void interShop__MakingOrderPage__SecondPositiveOrderTest() {
         var page = new OrderPage(driver);
         page.open();
-        page.add__goods__scenario();
-        page.authorization();
-        page.authorization__submit();
-        page.add__contacts__information();
-        page.forward__payment__bank();
-        page.confirm__order();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(page.expectedHeaderLocator));
+        page.catalogButtonLocator.click();
+        page.cardAddBasketButtonLocator.click();
+        page.cardMoreInformationLocator.click();
+        page.addOrderButtonLocator.click();
+        page.pleaseAuthButtonLocator.click();
+        page.inputNameAuthLocator.sendKeys("testing12@test.com");
+        page.inputPasswordAuthLocator.sendKeys("12345678");
+        page.authButtonLocator.click();
+        page.nameInputLocator.sendKeys("Зина");
+        page.surnameInputLocator.sendKeys("Малышева");
+        page.addressInputLocator.sendKeys("ул. Кутузова 16");
+        page.cityInputLocator.sendKeys("Ульяновск");
+        page.stateInputLocator.sendKeys("Ульяновская область");
+        page.postCodeInputLocator.sendKeys("320456");
+        page.phoneNumberInputLocator.sendKeys("+79173063467");
+        page.paymentSecondPaymentMethodRadioButtonLocator.click();
+        page.orderByButtonLocator.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(page.expectedHeaderLocatorWait));
         Assert.assertEquals(message__order__is__not__done, expectedResult, page.get__header__text());
     }
 
@@ -66,13 +99,24 @@ public class InterShopMakingOrderPageTests extends TestBase{
         var expectedCouponHeader = "Coupon code applied successfully.";
         var page = new OrderPage(driver);
         page.open();
-        page.add__goods__scenario();
-        page.authorization();
-        page.authorization__submit();
-        page.add__contacts__information();
-        page.apply__coupon();
-        page.add__coupon();
-        page.get__discount();
+        page.catalogButtonLocator.click();
+        page.cardAddBasketButtonLocator.click();
+        page.cardMoreInformationLocator.click();
+        page.addOrderButtonLocator.click();
+        page.pleaseAuthButtonLocator.click();
+        page.inputNameAuthLocator.sendKeys("testing12@test.com");
+        page.inputPasswordAuthLocator.sendKeys("12345678");
+        page.authButtonLocator.click();
+        page.nameInputLocator.sendKeys("Зина");
+        page.surnameInputLocator.sendKeys("Малышева");
+        page.addressInputLocator.sendKeys("ул. Кутузова 16");
+        page.cityInputLocator.sendKeys("Ульяновск");
+        page.stateInputLocator.sendKeys("Ульяновская область");
+        page.postCodeInputLocator.sendKeys("320456");
+        page.phoneNumberInputLocator.sendKeys("+79173063467");
+        page.addCouponButtonLocator.click();
+        page.couponInputLocator.sendKeys("sert500");
+        page.applyCouponButton.click();
         Assert.assertEquals(message__coupon__is__not__done, expectedCouponHeader, page.get__coupon__header__text());
     }
 }
