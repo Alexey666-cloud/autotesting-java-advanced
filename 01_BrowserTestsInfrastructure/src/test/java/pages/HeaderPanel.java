@@ -16,4 +16,9 @@ public class HeaderPanel {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
+
+    public Page clickMainPageButtonLocator() {
+        mainPageButtonLocator.click();
+        return new Page(driver);
+    }
 }

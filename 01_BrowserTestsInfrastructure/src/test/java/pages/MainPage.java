@@ -6,17 +6,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class MainPage {
-
-    private WebDriver driver;
-    public HeaderPanel headerPanel;
+public class MainPage extends Page {
 
     private String url = "http://intershop6.skillbox.ru/";
 
     @FindBy(css = "#accesspress_storemo-2 .caption")
     public WebElement bookCardLocator;
-    @FindBy(css = "h1.entry-title.ak-container")
-    public WebElement sectionBookTitleLocator;
+
     @FindBy(css = "#accesspress_storemo-3 .caption")
     public WebElement tabletCardLocator;
     @FindBy(css = "#accesspress_storemo-4 .caption")
@@ -27,29 +23,32 @@ public class MainPage {
     public WebElement tabletTitleHeaderLocator;
 
     public By viewedProductsModuleLocator = By.cssSelector("#woocommerce_recently_viewed_products-2");
-    public By phoneTextLocator = By.cssSelector(".text-5-value:nth-child(1)");
+
     public By htmlLocator = By.cssSelector("html");
-    public By emailTextLocator = By.cssSelector(".text-5-value:nth-child(2)");
+
 
     public MainPage(WebDriver driver) {
-        this.driver = driver;
-        headerPanel = new HeaderPanel(driver);
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
-    public void open() {
+    public MainPage open() {
         driver.navigate().to(url);
+        return this;
     }
 
-    public String get__title() {
-        return sectionBookTitleLocator.getText();
+    public MainPage clickSeeProductButtonLocator(){
+        seeProductButtonLocator.click();
+        return this;
     }
 
-    public String get__phone__sub__title() {
-        return driver.findElement(phoneTextLocator).getText();
+    public MainPage clickCameraCardLocator(){
+        cameraCardLocator.click();
+        return this;
     }
 
-    public String get__email__sub__title() {
-        return driver.findElement(emailTextLocator).getText();
+    public MainPage clickTabletCardLocator(){
+        tabletCardLocator.click();
+        return this;
     }
 }
