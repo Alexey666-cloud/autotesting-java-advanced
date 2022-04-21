@@ -1,14 +1,12 @@
 package pages;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class OrderPage {
-
-    private WebDriver driver;
+public class OrderPage extends Page{
 
     private String url = "http://intershop6.skillbox.ru/product-category/catalog/";
 
@@ -66,8 +64,9 @@ public class OrderPage {
     public By expectedHeaderLocatorWait = By.cssSelector(".woocommerce-thankyou-order-received");
     public By errorNameExpectedHeaderLocatorWait = By.cssSelector("[data-id='billing_first_name']");
 
-    public OrderPage(WebDriver driver) {
+    public OrderPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
+        this.wait = wait;
         PageFactory.initElements(driver, this);
     }
 

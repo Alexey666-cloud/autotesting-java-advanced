@@ -1,14 +1,11 @@
 package pages;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class RegistrationPage {
-
-    private WebDriver driver;
+public class RegistrationPage extends Page {
 
     private String url = "http://intershop6.skillbox.ru/";
 
@@ -39,8 +36,9 @@ public class RegistrationPage {
     @FindBy(css = ".woocommerce-error > li")
     public WebElement expectedErrorHeaderAuthLocator;
 
-    public RegistrationPage(WebDriver driver) {
+    public RegistrationPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
+        this.wait = wait;
         PageFactory.initElements(driver, this);
     }
 

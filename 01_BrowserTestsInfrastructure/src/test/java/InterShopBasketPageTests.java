@@ -1,6 +1,5 @@
 import org.junit.Assert;
 import org.junit.Test;
-
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.BasketPage;
 
@@ -16,7 +15,7 @@ public class InterShopBasketPageTests extends TestBase {
     @Test
     public void interShop__BasketPage__PositiveTest() {
         var expectedHeader = "ОФОРМЛЕНИЕ ЗАКАЗА";
-        var page = new BasketPage(driver);
+        var page = new BasketPage(driver, wait);
         page.open();
         page.addProductButtonLocator.click();
         page.moreInformationProductButtonLocator.click();
@@ -28,7 +27,7 @@ public class InterShopBasketPageTests extends TestBase {
     @Test
     public void interShop__BasketPage__CouponApplicationTest() {
         var expectedResult = "34990,00₽";
-        var page = new BasketPage(driver);
+        var page = new BasketPage(driver, wait);
         page.open();
         page.addProductButtonLocator.click();
         page.moreInformationProductButtonLocator.click();
@@ -42,7 +41,7 @@ public class InterShopBasketPageTests extends TestBase {
     @Test
     public void interShop__BasketPage__NegativeCouponApplicationTest() {
         var expectedErrorString = "Неверный купон.";
-        var page = new BasketPage(driver);
+        var page = new BasketPage(driver, wait);
         page.open();
         page.addProductButtonLocator.click();
         page.moreInformationProductButtonLocator.click();
@@ -55,7 +54,7 @@ public class InterShopBasketPageTests extends TestBase {
     @Test
     public void interShop__BasketPage__DeleteCouponTest() {
         var expectedCouponString = "Coupon has been removed.";
-        var page = new BasketPage(driver);
+        var page = new BasketPage(driver, wait);
         page.open();
         page.addProductButtonLocator.click();
         page.moreInformationProductButtonLocator.click();
@@ -70,7 +69,7 @@ public class InterShopBasketPageTests extends TestBase {
     @Test
     public void interShop__BasketPage__DeleteProductTest() {
         var expectedHeader = "Корзина пуста.";
-        var page = new BasketPage(driver);
+        var page = new BasketPage(driver, wait);
         page.open();
         page.addProductButtonLocator.click();
         page.moreInformationProductButtonLocator.click();

@@ -1,12 +1,15 @@
 package pages;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class BonusPage {
+import java.util.concurrent.TimeUnit;
 
-    private WebDriver driver;
+public class BonusPage extends Page{
 
     private String url = "http://intershop6.skillbox.ru/bonus/";
 
@@ -21,8 +24,11 @@ public class BonusPage {
     @FindBy(css = "#bonus_content")
     public WebElement emptyErrorMessage;
 
-    public BonusPage(WebDriver driver) {
+    private By loaderLocatorLastPoint = By.className("loaderPoint");
+
+    public BonusPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
+        this.wait = wait;
         PageFactory.initElements(driver, this);
     }
 
@@ -30,11 +36,42 @@ public class BonusPage {
         driver.navigate().to(url);
     }
 
-    public String getTextHeader() {
-        return resultHeader.getText();
+    public Boolean isDisplayedTextHeader() {
+        try {
+            driver.manage()
+                    .timeouts()
+                    .implicitlyWait(5, TimeUnit.SECONDS);
+            return resultHeader.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        } finally {
+            driver.manage()
+                    .timeouts()
+                    .implicitlyWait(5, TimeUnit.SECONDS);
+        }
+    }
+
+    public Boolean isNotDisplayedTextHeader() {
+        try {
+            driver.manage()
+                    .timeouts()
+                    .implicitlyWait(0, TimeUnit.SECONDS);
+            return resultHeader.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        } finally {
+            driver.manage()
+                    .timeouts()
+                    .implicitlyWait(5, TimeUnit.SECONDS);
+        }
     }
 
     public String getEmptyErrorMessage() {
         return emptyErrorMessage.getText();
+    }
+
+    public void waitForLoaderEnds() {
+        var newWait = new WebDriverWait(driver, 15);
+        newWait.until(driver -> driver.findElements(loaderLocatorLastPoint).size() == 4);
     }
 }

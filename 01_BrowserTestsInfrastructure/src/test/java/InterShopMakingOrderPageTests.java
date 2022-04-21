@@ -17,7 +17,7 @@ public class InterShopMakingOrderPageTests extends TestBase{
     public void interShop__MakingOrderPage__NegativeOrderTest() {
         var firstExpectedResult = "Имя для выставления счета обязательное поле.";
         var secondExpectedResult = "Фамилия для выставления счета обязательное поле.";
-        var page = new OrderPage(driver);
+        var page = new OrderPage(driver, wait);
         page.open();
         page.catalogButtonLocator.click();
         page.cardAddBasketButtonLocator.click();
@@ -44,7 +44,7 @@ public class InterShopMakingOrderPageTests extends TestBase{
     //Позитивный сценарий оформления заказа, с выбором способа оплаты "Оплата при доставке"
     @Test
     public void interShop__MakingOrderPage__FirstPositiveOrderTest() {
-        var page = new OrderPage(driver);
+        var page = new OrderPage(driver, wait);
         page.open();
         page.catalogButtonLocator.click();
         page.cardAddBasketButtonLocator.click();
@@ -70,7 +70,7 @@ public class InterShopMakingOrderPageTests extends TestBase{
     //Позитивный сценарий оформления заказа, с выбором способа оплаты "Банковской картой"
     @Test
     public void interShop__MakingOrderPage__SecondPositiveOrderTest() {
-        var page = new OrderPage(driver);
+        var page = new OrderPage(driver, wait);
         page.open();
         page.catalogButtonLocator.click();
         page.cardAddBasketButtonLocator.click();
@@ -97,7 +97,7 @@ public class InterShopMakingOrderPageTests extends TestBase{
     @Test
     public void interShop__MakingOrderPage__AddCouponTest() {
         var expectedCouponHeader = "Coupon code applied successfully.";
-        var page = new OrderPage(driver);
+        var page = new OrderPage(driver, wait);
         page.open();
         page.catalogButtonLocator.click();
         page.cardAddBasketButtonLocator.click();

@@ -3,10 +3,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class CatalogPage {
-
-    private WebDriver driver;
+public class CatalogPage extends Page{
 
     private String url = "http://intershop6.skillbox.ru/product-category/catalog/";
 
@@ -55,8 +54,9 @@ public class CatalogPage {
     @FindBy(linkText = "Фотоаппарат CANON EOS M50 kit ( 18-150 IS STM), черный")
     public WebElement expectedElectronicsSecondHeaderLocator;
 
-    public CatalogPage(WebDriver driver) {
+    public CatalogPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
+        this.wait = wait;
         PageFactory.initElements(driver, this);
     }
 

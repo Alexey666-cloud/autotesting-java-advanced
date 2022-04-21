@@ -10,7 +10,7 @@ public class InterShopCatalogPageTests extends TestBase {
     @Test
     public void interShop__CatalogPage__First__householdEquipment__AddBasketTest() {
         var expectedResult = "Стиральная машина BEKO WRE64P1BWW, фронтальная, 6кг, 800об/мин";
-        var page = new CatalogPage(driver);
+        var page = new CatalogPage(driver, wait);
         page.open();
         page.linkHouseholdEquipmentCatalogListLocator.click();
         page.addBasketButton.click();
@@ -22,7 +22,7 @@ public class InterShopCatalogPageTests extends TestBase {
     @Test
     public void interShop__CatalogPage__Second__householdEquipment__AddBasketTest() {
         var expectedResult = "Холодильник БИРЮСА Б-M10, однокамерный, серебристый";
-        var page = new CatalogPage(driver);
+        var page = new CatalogPage(driver, wait);
         page.open();
         page.linkHouseholdEquipmentCatalogListLocator.click();
         page.addRefrigeratorBasketButton.click();
@@ -35,7 +35,7 @@ public class InterShopCatalogPageTests extends TestBase {
     @Test
     public void interShop__CatalogPage__First__Catalog__AddBasketTest() {
         var expectedResult = "LED телевизор XIAOMI Mi TV 4A 32 HD READY";
-        var page = new CatalogPage(driver);
+        var page = new CatalogPage(driver, wait);
         page.open();
         page.addCatalogBasketButtonLocator.click();
         page.moreInformationButtonLocator.click();
@@ -46,7 +46,7 @@ public class InterShopCatalogPageTests extends TestBase {
     @Test
     public void interShop__CatalogPage__Second__Catalog__AddBasketTest() {
         var expectedResult = "SAMSUNG Galaxy S20 8/128Gb, SM-G980F, серый";
-        var page = new CatalogPage(driver);
+        var page = new CatalogPage(driver, wait);
         page.open();
         page.paginationButtonFirthLocator.click();
         page.addCatalogProductBasketButtonLocator.click();
@@ -58,7 +58,7 @@ public class InterShopCatalogPageTests extends TestBase {
     @Test
     public void interShop__CatalogPage__Tables__AddBasketTest() {
         var expectedResult = "iPad 2020 32gb wi-fi";
-        var page = new CatalogPage(driver);
+        var page = new CatalogPage(driver, wait);
         page.open();
         page.tablesButtonLocator.click();
         page.addBasketButton.click();
@@ -70,7 +70,7 @@ public class InterShopCatalogPageTests extends TestBase {
     @Test
     public void interShop__CatalogPage__Watch__AddBasketTest() {
         var expectedResult = "SAMSUNG Galaxy Watch 46мм, 1.3\", серебристый";
-        var page = new CatalogPage(driver);
+        var page = new CatalogPage(driver, wait);
         page.open();
         page.watchButtonLocator.click();
         page.cardAddButtonLocator.click();
@@ -83,7 +83,7 @@ public class InterShopCatalogPageTests extends TestBase {
     public void interShop__CatalogPage__Electronics__AddBasketTest() {
         var firstExpectedResult = "SAMSUNG Galaxy Watch 46мм, 1.3\", серебристый";
         var secondExpectedResult = "Фотоаппарат CANON EOS M50 kit ( 18-150 IS STM), черный";
-        var page = new CatalogPage(driver);
+        var page = new CatalogPage(driver, wait);
         page.open();
         page.electronicsButtonLocator.click();
         page.electronicsPaginationButtonLocator.click();

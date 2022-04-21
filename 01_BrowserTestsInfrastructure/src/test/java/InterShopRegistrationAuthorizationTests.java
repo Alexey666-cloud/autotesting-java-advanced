@@ -12,7 +12,7 @@ public class InterShopRegistrationAuthorizationTests extends TestBase {
     @Test
     public void interShop__AuthorizationPage__RegistrationTest() {
         var expectedResult = "Регистрация завершена";
-        var page = new RegistrationPage(driver);
+        var page = new RegistrationPage(driver, wait);
         page.open();
         page.enterButtonLocator.click();
         page.registrationButtonLocator.click();
@@ -27,7 +27,7 @@ public class InterShopRegistrationAuthorizationTests extends TestBase {
     @Test
     public void interShop__AuthorizationPage__AuthorizationTest() {
         var expectedHeader = "МОЙ АККАУНТ";
-        var page = new RegistrationPage(driver);
+        var page = new RegistrationPage(driver, wait);
         page.open();
         page.enterButtonLocator.click();
         page.nameInputLocator.sendKeys("test@Localtest87.com");
@@ -40,7 +40,7 @@ public class InterShopRegistrationAuthorizationTests extends TestBase {
     @Test
     public void interShop__AuthorizationPage__NegativePasswordAuthorizationTest() {
         var expectedHeader = "Пароль обязателен.";
-        var page = new RegistrationPage(driver);
+        var page = new RegistrationPage(driver, wait);
         page.open();
         page.enterButtonLocator.click();
         page.nameInputAuthLocator.sendKeys("test@test.com");
@@ -52,7 +52,7 @@ public class InterShopRegistrationAuthorizationTests extends TestBase {
     @Test
     public void interShop__AuthorizationPage__NegativeNameAuthorizationTest() {
         var expectedHeader = "Error: Имя пользователя обязательно.";
-        var page = new RegistrationPage(driver);
+        var page = new RegistrationPage(driver, wait);
         page.open();
         page.enterButtonLocator.click();
         page.passwordInputLocator.sendKeys("12345678");

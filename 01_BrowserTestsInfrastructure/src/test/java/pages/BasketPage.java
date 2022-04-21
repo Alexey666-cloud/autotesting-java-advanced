@@ -4,10 +4,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class BasketPage {
-
-    private WebDriver driver;
+public class BasketPage  extends Page{
 
     private String url = "http://intershop6.skillbox.ru/product-category/catalog/";
 
@@ -35,8 +34,9 @@ public class BasketPage {
     public By deleteCouponButtonLocator = By.cssSelector("a.woocommerce-remove-coupon");
     public By deleteProductButtonLocator = By.linkText("×");
 
-    public BasketPage(WebDriver driver) {
+    public BasketPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
+        this.wait = wait;
         PageFactory.initElements(driver, this);
     }
 

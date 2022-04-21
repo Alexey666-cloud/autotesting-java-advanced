@@ -21,8 +21,8 @@ public class TestBase {
         options.addArguments("incognito");
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
         driver = new ChromeDriver(options);
-        wait = new WebDriverWait(driver, 16);
-        driver.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
+        wait = new WebDriverWait(driver, 5);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().setSize(new Dimension(1920, 1080));
     }
 

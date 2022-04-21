@@ -1,10 +1,11 @@
 package pages;
-
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MainPage extends Page {
 
@@ -21,14 +22,15 @@ public class MainPage extends Page {
     public WebElement seeProductButtonLocator;
     @FindBy(css = ".product_title.entry-title")
     public WebElement tabletTitleHeaderLocator;
-
-    public By viewedProductsModuleLocator = By.cssSelector("#woocommerce_recently_viewed_products-2");
+    @FindBy(css = "#woocommerce_recently_viewed_products-2")
+    public WebElement viewedProductsModuleLocator;
 
     public By htmlLocator = By.cssSelector("html");
 
 
-    public MainPage(WebDriver driver) {
-        super(driver);
+    public MainPage(WebDriver driver, WebDriverWait wait) {
+        this.driver = driver;
+        this.wait = wait;
         PageFactory.initElements(driver, this);
     }
 
@@ -37,18 +39,24 @@ public class MainPage extends Page {
         return this;
     }
 
-    public MainPage clickSeeProductButtonLocator(){
+    public MainPage clickSeeProductButtonLocator() {
         seeProductButtonLocator.click();
         return this;
     }
 
-    public MainPage clickCameraCardLocator(){
+    public MainPage clickCameraCardLocator() {
         cameraCardLocator.click();
         return this;
     }
 
-    public MainPage clickTabletCardLocator(){
+    public MainPage clickTabletCardLocator() {
         tabletCardLocator.click();
+        return this;
+    }
+
+    public MainPage scrollPage__inTo__requiredBlock() {
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        jse.executeScript("scroll(0, 500)"); //y value '250' can be altered
         return this;
     }
 }

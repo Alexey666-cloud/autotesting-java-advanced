@@ -6,9 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="01_BrowserTestsInfrastructure" />
         <module name="diploma" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="diploma" target="16" />
+    </bytecodeTargetLevel>
   </component>
 </project>
