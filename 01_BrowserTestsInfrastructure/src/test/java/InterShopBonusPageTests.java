@@ -1,28 +1,44 @@
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import pages.BonusPage;
+import java.util.stream.Stream;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 public class InterShopBonusPageTests extends TestBase {
 
-    private String errorMessage = "Заголовок не найден!";
+    private final String errorMessage = "Заголовок не найден!";
 
-    @Test
-    public void positive__scenario__test() {
+    private static Stream<Arguments> positive__scenario__test__data() {
+        return Stream.of(
+                arguments("Alexandr", "89341055132"),
+                arguments("Вася", "+79341055132")
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("positive__scenario__test__data")
+    public void positive__scenario__test(String userName, String phoneNumber) {
         var page = new BonusPage(driver, wait);
         page.open();
-        page.userName.sendKeys("Вася");
-        page.phoneNumber.sendKeys("+79615441432");
+        page.userName.sendKeys(userName);
+        page.phoneNumber.sendKeys(phoneNumber);
         page.submitButton.click();
+
         page.waitForLoaderEnds();
 
-        Assert.assertTrue(errorMessage, page.isDisplayedTextHeader());
+        Assertions.assertAll(
+                () -> Assertions.assertTrue(page.isDisplayedTextHeader(), errorMessage)
+        );
     }
 
     @Test
     public void bonusPage__open__successResultMessageIsNotDisplayed() {
         var page = new BonusPage(driver, wait);
         page.open();
-        Assert.assertFalse("При открытии страницы сразу отображается заголовок!", page.isNotDisplayedTextHeader());
+        Assertions.assertFalse(page.isNotDisplayedTextHeader(), "При открытии страницы сразу отображается заголовок!");
     }
 
     @Test
@@ -33,7 +49,7 @@ public class InterShopBonusPageTests extends TestBase {
         page.userName.sendKeys("");
         page.phoneNumber.sendKeys("+79615441432");
         page.submitButton.click();
-        Assert.assertEquals(errorMessage, expectedResult, page.getEmptyErrorMessage());
+        Assertions.assertEquals(expectedResult, page.getEmptyErrorMessage(), errorMessage);
     }
 
     @Test
@@ -44,7 +60,7 @@ public class InterShopBonusPageTests extends TestBase {
         page.userName.sendKeys("Вася");
         page.phoneNumber.sendKeys("");
         page.submitButton.click();
-        Assert.assertEquals(errorMessage, expectedResult, page.getEmptyErrorMessage());
+        Assertions.assertEquals(expectedResult, page.getEmptyErrorMessage(), errorMessage);
     }
 
     @Test
@@ -57,7 +73,7 @@ public class InterShopBonusPageTests extends TestBase {
         page.userName.sendKeys("");
         page.phoneNumber.sendKeys("");
         page.submitButton.click();
-        Assert.assertEquals(errorMessage, expectedResult, page.getEmptyErrorMessage());
+        Assertions.assertEquals(expectedResult, page.getEmptyErrorMessage(), errorMessage);
     }
 
     @Test
@@ -68,6 +84,6 @@ public class InterShopBonusPageTests extends TestBase {
         page.userName.sendKeys("+79615441432");
         page.phoneNumber.sendKeys("Вася");
         page.submitButton.click();
-        Assert.assertEquals(errorMessage, expectedResult, page.getEmptyErrorMessage());
+        Assertions.assertEquals(expectedResult, page.getEmptyErrorMessage(), errorMessage);
     }
 }

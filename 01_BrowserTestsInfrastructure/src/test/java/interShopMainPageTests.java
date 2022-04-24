@@ -1,7 +1,8 @@
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.asserts.Assertion;
 import pages.HeaderPanel;
 import pages.MainPage;
 
@@ -18,7 +19,7 @@ public class interShopMainPageTests extends TestBase {
         var page = new MainPage(driver, wait)
                 .open();
         page.bookCardLocator.click();
-        Assert.assertEquals(error__message, "КНИГИ", page.get__title());
+        Assertions.assertEquals("КНИГИ", page.get__title(), error__message);
     }
 
     //Проверка перехода в раздел "Планшеты", кликая на карточку "Планшеты"
@@ -27,7 +28,7 @@ public class interShopMainPageTests extends TestBase {
         var page = new MainPage(driver, wait)
                 .open()
                 .clickTabletCardLocator();
-        Assert.assertEquals(error__message, "ПЛАНШЕТЫ", page.get__title());
+        Assertions.assertEquals("ПЛАНШЕТЫ", page.get__title(), error__message);
     }
 
     //Проверка перехода в раздел "Фото/Видео", кликая на карточку "Фото/Видео"
@@ -36,7 +37,7 @@ public class interShopMainPageTests extends TestBase {
         var page = new MainPage(driver, wait)
                 .open()
                 .clickCameraCardLocator();
-        Assert.assertEquals(error__message, "ФОТО/ВИДЕО", page.get__title());
+        Assertions.assertEquals("ФОТО/ВИДЕО", page.get__title(), error__message);
     }
 
     //Проверка перехода в раздел "Уже в продаже", кликая в карточке "Уже в продаже" на кнопку "Посмотреть товар"
@@ -45,7 +46,7 @@ public class interShopMainPageTests extends TestBase {
         var page = new MainPage(driver, wait)
                 .open()
                 .clickSeeProductButtonLocator();
-        Assert.assertEquals(incorrect__tablet__message, "iPad 2020 32gb wi-fi", page.tabletTitleHeaderLocator.getText());
+        Assertions.assertEquals("iPad 2020 32gb wi-fi", page.tabletTitleHeaderLocator.getText(), incorrect__tablet__message);
     }
 
     //Проверка появления модуля "Ранее просмотренные товары"
@@ -58,7 +59,7 @@ public class interShopMainPageTests extends TestBase {
         mainPage.clickSeeProductButtonLocator();
         headerPanel.clickMainPageButtonLocator();
 
-        Assert.assertTrue(group__is__empty, mainPage.viewedProductsModuleLocator.isDisplayed());
+        Assertions.assertTrue(mainPage.viewedProductsModuleLocator.isDisplayed(), group__is__empty);
     }
 
     //Проверка указанного в разделе контакты, в футере странице телефона
@@ -68,7 +69,7 @@ public class interShopMainPageTests extends TestBase {
                 .open();
         driver.findElement(page.htmlLocator).sendKeys(Keys.END);
         wait.until(ExpectedConditions.visibilityOfElementLocated(page.phoneTextLocator));
-        Assert.assertEquals(incorrect__phone__message, "Телефон: +7-999-123-12-12", page.get__phone__sub__title());
+        Assertions.assertEquals("Телефон: +7-999-123-12-12", page.get__phone__sub__title(), incorrect__phone__message);
     }
 
     //Проверка указанного в разделе контакты, в футере странице e-mail
@@ -78,6 +79,6 @@ public class interShopMainPageTests extends TestBase {
                 .open();
         driver.findElement(page.htmlLocator).sendKeys(Keys.END);
         wait.until(ExpectedConditions.visibilityOfElementLocated(page.emailTextLocator));
-        Assert.assertEquals(incorrect__phone__message, "Email: skillbox@skillbox.ru", page.get__email__sub__title());
+        Assertions.assertEquals("Email: skillbox@skillbox.ru", page.get__email__sub__title(), incorrect__phone__message);
     }
 }

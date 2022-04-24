@@ -1,5 +1,5 @@
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import pages.CatalogPage;
 
 public class InterShopCatalogPageTests extends TestBase {
@@ -15,7 +15,7 @@ public class InterShopCatalogPageTests extends TestBase {
         page.linkHouseholdEquipmentCatalogListLocator.click();
         page.addBasketButton.click();
         page.moreInformationButtonLocator.click();
-        Assert.assertEquals(error_message, expectedResult, page.get__equipment__header__card__text());
+        Assertions.assertEquals(expectedResult, page.get__equipment__header__card__text(), error_message);
     }
 
     //Проверить добавление холодильника в корзину, в разделе "Бытовая техника"
@@ -27,7 +27,7 @@ public class InterShopCatalogPageTests extends TestBase {
         page.linkHouseholdEquipmentCatalogListLocator.click();
         page.addRefrigeratorBasketButton.click();
         page.moreInformationButtonLocator.click();
-        Assert.assertEquals(error_message, expectedResult, page.get__refrigerator__header__card__text());
+        Assertions.assertEquals(expectedResult, page.get__refrigerator__header__card__text(), error_message);
     }
 
 
@@ -39,7 +39,7 @@ public class InterShopCatalogPageTests extends TestBase {
         page.open();
         page.addCatalogBasketButtonLocator.click();
         page.moreInformationButtonLocator.click();
-        Assert.assertEquals(error_message, expectedResult, page.get__first__header__result__text());
+        Assertions.assertEquals(expectedResult, page.get__first__header__result__text(), error_message);
     }
 
     //Проверить работу пагинации, и добавления товара на крайней странице в разделе "Каталог"
@@ -51,7 +51,7 @@ public class InterShopCatalogPageTests extends TestBase {
         page.paginationButtonFirthLocator.click();
         page.addCatalogProductBasketButtonLocator.click();
         page.moreInformationButtonLocator.click();
-        Assert.assertEquals(error_message, expectedResult, page.get__second__header__result__text());
+        Assertions.assertEquals(expectedResult, page.get__second__header__result__text(), error_message);
     }
 
     //Проверить добавление товара в корзину, в разделе "Планшеты"
@@ -63,7 +63,7 @@ public class InterShopCatalogPageTests extends TestBase {
         page.tablesButtonLocator.click();
         page.addBasketButton.click();
         page.moreInformationButtonLocator.click();
-        Assert.assertEquals(error_message, expectedResult, page.get__tables__header__text());
+        Assertions.assertEquals(expectedResult, page.get__tables__header__text(), error_message);
     }
 
     //Проверить добавление товара в корзину, в разделе "Часы"
@@ -75,7 +75,7 @@ public class InterShopCatalogPageTests extends TestBase {
         page.watchButtonLocator.click();
         page.cardAddButtonLocator.click();
         page.moreInformationButtonLocator.click();
-        Assert.assertEquals(error_message, expectedResult, page.get__watch__header__text());
+        Assertions.assertEquals(expectedResult, page.get__watch__header__text(), error_message);
     }
 
     //Проверить работу пагинации, и добавления товара на крайней странице в разделе "Электроника"
@@ -90,7 +90,7 @@ public class InterShopCatalogPageTests extends TestBase {
         page.cardAddButtonLocator.click();
         page.electronicsSecondAddBasketButtonLocator.click();
         page.electronicsMoreInformationButtonLocator.click();
-        Assert.assertEquals(error_message, firstExpectedResult, page.get__electronics__first__header__text());
-        Assert.assertEquals(error_message, secondExpectedResult, page.get__electronics__second__header__text());
+        Assertions.assertEquals(firstExpectedResult, page.get__electronics__first__header__text(), error_message);
+        Assertions.assertEquals(secondExpectedResult, page.get__electronics__second__header__text(), error_message);
     }
 }

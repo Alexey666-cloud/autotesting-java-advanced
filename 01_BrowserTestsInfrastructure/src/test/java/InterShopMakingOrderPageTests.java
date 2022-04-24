@@ -1,5 +1,5 @@
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.OrderPage;
 
@@ -37,8 +37,8 @@ public class InterShopMakingOrderPageTests extends TestBase{
         page.paymentMethodRadioButtonLocator.click();
         page.orderByButtonLocator.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(page.errorNameExpectedHeaderLocatorWait));
-        Assert.assertEquals(error__message, firstExpectedResult, page.get__error__name__header__text());
-        Assert.assertEquals(error__message, secondExpectedResult, page.get__error__surname__header__text());
+        Assertions.assertEquals(firstExpectedResult, page.get__error__name__header__text(), error__message);
+        Assertions.assertEquals(secondExpectedResult, page.get__error__surname__header__text(), error__message);
     }
 
     //Позитивный сценарий оформления заказа, с выбором способа оплаты "Оплата при доставке"
@@ -64,7 +64,7 @@ public class InterShopMakingOrderPageTests extends TestBase{
         page.paymentMethodRadioButtonLocator.click();
         page.orderByButtonLocator.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(page.expectedHeaderLocatorWait));
-        Assert.assertEquals(message__order__is__not__done, expectedResult, page.get__header__text());
+        Assertions.assertEquals(expectedResult, page.get__header__text(), message__order__is__not__done);
     }
 
     //Позитивный сценарий оформления заказа, с выбором способа оплаты "Банковской картой"
@@ -90,7 +90,7 @@ public class InterShopMakingOrderPageTests extends TestBase{
         page.paymentSecondPaymentMethodRadioButtonLocator.click();
         page.orderByButtonLocator.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(page.expectedHeaderLocatorWait));
-        Assert.assertEquals(message__order__is__not__done, expectedResult, page.get__header__text());
+        Assertions.assertEquals(expectedResult, page.get__header__text(), message__order__is__not__done);
     }
 
     //Добавить купон в форме оформления заказа
@@ -117,6 +117,6 @@ public class InterShopMakingOrderPageTests extends TestBase{
         page.addCouponButtonLocator.click();
         page.couponInputLocator.sendKeys("sert500");
         page.applyCouponButton.click();
-        Assert.assertEquals(message__coupon__is__not__done, expectedCouponHeader, page.get__coupon__header__text());
+        Assertions.assertEquals(expectedCouponHeader, page.get__coupon__header__text(), message__coupon__is__not__done);
     }
 }

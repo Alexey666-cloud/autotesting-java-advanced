@@ -1,6 +1,6 @@
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.annotations.Test;
 import pages.BasketPage;
 
 public class InterShopBasketPageTests extends TestBase {
@@ -20,7 +20,7 @@ public class InterShopBasketPageTests extends TestBase {
         page.addProductButtonLocator.click();
         page.moreInformationProductButtonLocator.click();
         page.confirmOrderButtonLocator.click();
-        Assert.assertEquals(error__invalid__transition, expectedHeader, page.get__header__text__add__goods());
+        Assertions.assertEquals(expectedHeader, page.get__header__text__add__goods(), error__invalid__transition);
     }
 
     //Проверка применения купона на странице "Корзина"
@@ -34,7 +34,7 @@ public class InterShopBasketPageTests extends TestBase {
         page.inputCouponLocator.sendKeys("sert500");
         page.buttonApplyCouponLocator.click();
         var actualResult = page.finalPriceLocator.getText();
-        Assert.assertEquals(error__incorrect__amount, actualResult, expectedResult);
+        Assertions.assertEquals(expectedResult, actualResult, error__incorrect__amount);
     }
 
     //Негативный сценарий. Ввести не корректный купон, в поле для купона, на странице "Корзина"
@@ -47,7 +47,7 @@ public class InterShopBasketPageTests extends TestBase {
         page.moreInformationProductButtonLocator.click();
         page.inputCouponLocator.sendKeys("sert3000");
         page.buttonApplyCouponLocator.click();
-        Assert.assertEquals(error__not__message, expectedErrorString, page.get__error__text__with__delete__coupon());
+        Assertions.assertEquals(expectedErrorString, page.get__error__text__with__delete__coupon(), error__not__message);
     }
 
     //Проверка удаления купона из корзины
@@ -62,7 +62,7 @@ public class InterShopBasketPageTests extends TestBase {
         page.buttonApplyCouponLocator.click();
         page.delete__coupon();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(page.deleteCouponButtonLocator));
-        Assert.assertEquals(error__not__message__delete__coupon, expectedCouponString, page.get__error__text());
+        Assertions.assertEquals(expectedCouponString, page.get__error__text(), error__not__message__delete__coupon);
     }
 
     //Проверка удаления товара из корзины
@@ -74,6 +74,6 @@ public class InterShopBasketPageTests extends TestBase {
         page.addProductButtonLocator.click();
         page.moreInformationProductButtonLocator.click();
         page.delete__product();
-        Assert.assertEquals(error__goods__not__delete__on__basket, expectedHeader, page.get__header__empty__basket());
+        Assertions.assertEquals(expectedHeader, page.get__header__empty__basket(), error__goods__not__delete__on__basket);
     }
 }
