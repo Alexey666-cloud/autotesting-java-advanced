@@ -19,15 +19,15 @@ public class TestBase {
 
     @BeforeEach
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "drivers/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "drivers\\chromedriver.exe");
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         var options = new ChromeOptions();
         options.addArguments("--start-maximized");
         options.addArguments("incognito");
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
         driver = new ChromeDriver(options);
-        wait = new WebDriverWait(driver, 6);
-        driver.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
+        wait = new WebDriverWait(driver, 5);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
     @AfterEach

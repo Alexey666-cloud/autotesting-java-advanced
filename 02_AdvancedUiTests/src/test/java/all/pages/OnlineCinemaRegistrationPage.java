@@ -23,6 +23,7 @@ public class OnlineCinemaRegistrationPage extends Page {
     @FindBy(linkText = "по ссылке")
     public WebElement linkToAuth;
 
+
     public OnlineCinemaRegistrationPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
