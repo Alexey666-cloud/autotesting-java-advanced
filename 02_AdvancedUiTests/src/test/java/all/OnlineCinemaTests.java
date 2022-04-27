@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.params.provider.Arguments.arguments;
@@ -76,7 +75,7 @@ public class OnlineCinemaTests extends TestBase {
         Assertions.assertEquals(expectedMessage, pageAuth.getErrorMessageText(), errorMessage);
     }
 
-    private static Stream<Arguments> negative__forgotPassword__scenario__test() {
+    private static Stream<Arguments> invalid__forgotPassword__scenario__test() {
         return Stream.of(
                 arguments("234234234234"),
                 arguments("sfsdfsfsfsfs")
@@ -84,7 +83,7 @@ public class OnlineCinemaTests extends TestBase {
     }
 
     @ParameterizedTest
-    @MethodSource("negative__forgotPassword__scenario__test")
+    @MethodSource("invalid__forgotPassword__scenario__test")
     public void secondNegative__forgotPassword__scenario__test(String email) {
         var expectedHeader = "Неверный email";
 
