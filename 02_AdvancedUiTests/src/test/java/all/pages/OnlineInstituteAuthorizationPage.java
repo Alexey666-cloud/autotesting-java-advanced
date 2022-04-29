@@ -7,6 +7,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class OnlineInstituteAuthorizationPage extends Page{
 
+    private String url = "http://qa.skillbox.ru/module16/autorization1";
+
     @FindBy(css = ".baseInput:nth-child(3) .baseInput__field")
     public WebElement loginInput;
     @FindBy(css = ".baseInput:nth-child(4) .baseInput__field")
@@ -25,5 +27,9 @@ public class OnlineInstituteAuthorizationPage extends Page{
         this.passwordInput.sendKeys(password);
         submitButton.click();
         return new OnlineInstituteMainPage(driver, wait);
+    }
+
+    public void open() {
+        driver.navigate().to(url);
     }
 }

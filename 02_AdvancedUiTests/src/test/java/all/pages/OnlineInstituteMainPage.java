@@ -14,14 +14,8 @@ public class OnlineInstituteMainPage extends Page {
 
     private String url = "http://qa.skillbox.ru/module16/maincatalog/";
 
-    @FindBy(css = ".pageCreate__card:nth-child(1) .baseCard__button")
-    public WebElement addFirstCourseCard;
-    @FindBy(css = ".pageCreate__card:nth-child(8) .baseCard__button")
-    public WebElement addLastCourseCard;
     @FindBy(css = ".baseCard")
     public WebElement courseCards;
-    @FindBy(css = ".baseButton--blueFill")
-    public WebElement thanksButton;
 
     public By allCourseCard = By.cssSelector(".baseCard");
 
@@ -34,6 +28,10 @@ public class OnlineInstituteMainPage extends Page {
 
     public void open() {
         driver.navigate().to(url);
+    }
+
+    public OnlineInstituteCourseElement getCourseCard(int index) {
+        return new OnlineInstituteCourseElement(driver, index);
     }
 
     public Boolean isDisplayedTextHeader() {
@@ -54,20 +52,5 @@ public class OnlineInstituteMainPage extends Page {
     public void waitForAllCardDisplayed() {
         var newWait = new WebDriverWait(driver, 4);
         newWait.until(driver -> driver.findElements(allCourseCard).size() == 8);
-    }
-
-    public Boolean waitForThanksButtonDisplayed() {
-        try {
-            driver.manage()
-                    .timeouts()
-                    .implicitlyWait(10, TimeUnit.SECONDS);
-            return thanksButton.isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
-        } finally {
-            driver.manage()
-                    .timeouts()
-                    .implicitlyWait(5, TimeUnit.SECONDS);
-        }
     }
 }

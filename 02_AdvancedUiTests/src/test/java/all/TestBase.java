@@ -19,7 +19,7 @@ public class TestBase {
 
     @BeforeEach
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "drivers\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "drivers/chromedriver_lin");
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         var options = new ChromeOptions();
         options.addArguments("--start-maximized");
@@ -33,7 +33,7 @@ public class TestBase {
     @AfterEach
     public void tearDown() throws IOException {
         var sourceFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(sourceFile, new File("~/Documents/screenShots"));
+        FileUtils.copyFile(sourceFile, new File("Screenshots/screenShots"));
         driver.quit();
     }
 }

@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class OnlineInstituteHeaderPanel extends Page{
     @FindBy(css = ".baseHeader__button")
     public WebElement enterPersonalPage;
+    @FindBy(css = ".baseHeader__name")
+    public WebElement goToPersonalPage;
 
     public OnlineInstituteHeaderPanel(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
