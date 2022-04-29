@@ -50,7 +50,7 @@ public class OnlineInstituteMainPage extends Page {
     }
 
     public void waitForAllCardDisplayed() {
-        var newWait = new WebDriverWait(driver, 4);
+        var newWait = new WebDriverWait(driver, 8);
         newWait.until(driver -> driver.findElements(allCourseCard).size() == 8);
     }
 }

@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -19,7 +20,7 @@ public class TestBase {
 
     @BeforeEach
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "drivers/chromedriver_lin");
+        System.setProperty("webdriver.chrome.driver", "drivers/chromedriver_mac");
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         var options = new ChromeOptions();
         options.addArguments("--start-maximized");
