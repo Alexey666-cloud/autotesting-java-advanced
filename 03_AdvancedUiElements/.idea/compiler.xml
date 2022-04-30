@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="AdvancedSeleniumTests" />
         <module name="Source-base" />
+        <module name="03_AdvancedUiElements" />
       </profile>
     </annotationProcessing>
   </component>
