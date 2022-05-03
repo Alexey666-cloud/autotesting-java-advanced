@@ -4,7 +4,7 @@ import all.notes.pages.NotesMainPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class Tests extends TestBase{
+public class NotesTests extends TestBase{
 
     @Test
     public void setDate_in_calendarForm__andEqualsResult__Test() {
