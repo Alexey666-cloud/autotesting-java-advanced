@@ -36,6 +36,8 @@ public class MainPage extends Page {
     public WebElement skillboxLink;
     @FindBy(css = ".header")
     public WebElement header;
+    @FindBy(id = "form")
+    public WebElement form;
 
     public MainPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;

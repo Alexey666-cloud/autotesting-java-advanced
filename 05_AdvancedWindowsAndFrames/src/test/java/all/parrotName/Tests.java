@@ -193,7 +193,7 @@ public class Tests extends TestBase {
     }
 
     @Test
-    public void submitEmptyInput__and__goToSkillboxLink___backToMainPage__and__headerIsDisplayed__test() {
+    public void submitEmptyInput__and__goToSkillboxLink___backToMainPage__and__formIsDisplayed__test() {
         //arrange
         var page = new MainPage(driver, wait);
         page.open();
@@ -206,7 +206,7 @@ public class Tests extends TestBase {
         switchToWindow(initialWindow);
         page.switchToFrame();
         //assert
-        var actualResult = page.header.isDisplayed();
-        Assertions.assertTrue(actualResult, "Header не отображается!");
+        var actualResult = page.form.isDisplayed();
+        Assertions.assertTrue(actualResult, "Форма на главной странице не отображается!");
     }
 }
