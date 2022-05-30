@@ -15,7 +15,7 @@ public class NotesTests extends TestBase {
         page.scrollToLastNote();
 
         Assertions.assertAll(
-                () -> Assertions.assertTrue(page.isNoteDispalyed(11), "Не отображается первая дефолтная заметка!"),
+                () -> Assertions.assertTrue(page.isNoteDispalyed(11), "Не отобрадается первая дефолтная заметка!"),
                 () -> Assertions.assertTrue(page.isNoteDispalyed(12), "Не отображается вторая дефолтная заметка!")
         );
     }

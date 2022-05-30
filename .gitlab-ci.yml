@@ -1,0 +1,99 @@
+stages:
+  - install
+  - build
+  - tests
+  - deploy
+  - UI tests
+ 
+include:
+  - local: '.templates.yml'
+
+ 
+install deps:
+    stage: install
+    only:
+        - pushes
+        - master
+        - merge_requests
+    except:
+        - tags
+    script:
+        - curl https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.5.2/junit-platform-console-standalone-1.5.2.jar --output junit-platform-console-standalone-1.5.2.jar
+    artifacts:
+        paths:            
+           - junit-platform-console-standalone-1.5.2.jar  
+
+build libs:
+    stage: build
+    only:
+        - pushes
+        - merge_requests
+        - master
+    except:
+        - tags
+
+    before_script:
+        - mkdir bin
+    script:
+        - javac -d bin -sourcepath src -cp .:junit-platform-console-standalone-1.5.2.jar src/SolutionDynamicTest.java        
+    artifacts:
+        paths:            
+           - bin 
+
+build 3rd party:
+    stage: build
+    only:
+        - pushes
+        - merge_requests
+    except:
+        - master
+        - tags    
+    script:
+        - echo "build 3rd party job1"
+
+Chrome:
+    stage: UI tests
+    only:
+        - merge_requests
+    except:
+        - pushes   
+    script:
+        - echo "UI tests Chrome job"
+
+Firefox:
+    stage: UI tests
+    only:
+        - merge_requests
+    except:
+        - pushes   
+    script:
+        - echo "UI test Firefox job"
+
+Edge:
+    stage: UI tests
+    only:
+        - merge_requests
+    except:
+        - pushes   
+    script:
+        - echo "UI test Edge job"
+
+deploy to prod:
+    stage: deploy
+    only:
+        - tags
+    script:
+        - echo "deploy to prod"
+
+deploy to stg:
+    stage: deploy
+    only:
+        - merge_requests
+    before_script:
+        - ls node_modules/
+    script:
+        - Remove-Item -Path 'node_modules/' -Recurse
+    after_script:
+        - Get-ChildItem -Path 'node_modules/' -Force
+    dependencies:
+        - install deps 

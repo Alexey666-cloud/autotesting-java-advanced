@@ -1,0 +1,22 @@
+.unit-test-template:
+    stage: tests
+    only:
+        - pushes
+        - merge_requests 
+    except:
+        - tags  
+
+unit (java 8):
+    extends: .unit-test-template
+    script:
+        - java -jar ./junit-platform-console-standalone-1.5.2.jar --cp ./bin -c SolutionDynamicTest
+
+unit (java 12):
+    extends: .unit-test-template
+    script:
+        - java -jar ./junit-platform-console-standalone-1.5.2.jar --cp ./bin -c SolutionDynamicTest
+
+unit (java 15):
+    extends: .unit-test-template
+    script:
+        - java -jar ./junit-platform-console-standalone-1.5.2.jar --cp ./bin -c SolutionDynamicTest
